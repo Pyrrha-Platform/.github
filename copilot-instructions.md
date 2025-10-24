@@ -28,7 +28,7 @@ docker-compose up
 # Dashboard development (runs on :3000)
 cd Pyrrha-Dashboard/pyrrha-dashboard
 yarn install
-yarn start-main-api  # Flask API on :5000
+yarn start-main-api  # Flask API on :5001
 yarn start-auth-api  # Node.js auth on :4000  
 yarn start-ui        # React dev server
 ```
@@ -63,7 +63,7 @@ conn = mariadb.connect(
 - **api-auth** (Node.js/Express): IBM App ID authentication, session management
 
 **Proxy Configuration:** React dev server proxies API calls via `setupProxy.js`:
-- `/api-main/v1/` → Flask service (:5000)
+- `/api-main/v1/` → Flask service (:5001)
 - `/api-auth/v1/` → Node.js service (:4000)
 
 ## Real-time Data Flow
@@ -101,6 +101,6 @@ conn = mariadb.connect(
 
 ## Testing & Debugging
 
-**Service Health:** Check `docker-compose ps` for container status
+**Service Health:** Check `docker compose ps` for container status
 **Database Access:** Connect directly to MariaDB container for debugging queries
-**Log Aggregation:** Each service logs independently - use `docker-compose logs [service]`
+**Log Aggregation:** Each service logs independently - use `docker compose logs [service]`
