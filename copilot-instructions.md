@@ -21,6 +21,13 @@ Pyrrha is a distributed firefighter safety monitoring system built as a microser
 - **VerneMQ MQTT Broker**: v2.1.1-alpine with MySQL authentication plugin
 - **API Services**: Separate Flask (main) and Node.js (auth) backends
 
+**Mobile & Watch Applications:**
+- `Pyrrha-Mobile-App`: Android 14 (API 34) app with Samsung Accessory Protocol provider
+- `Pyrrha-Watch-App`: Tizen 5.5 Galaxy Watch 3 app with Samsung Accessory Protocol consumer
+- **Samsung Integration**: Real-time sensor data transmission mobile → watch via Bluetooth/WiFi
+- **BLE Integration**: Mobile app connects to Prometeo devices and forwards data to watch
+- **Modernization**: Both apps updated for Samsung Galaxy A51 + Galaxy Watch 3 platform
+
 ## Development Workflow
 
 **Production-Ready Local Development Setup:**
@@ -360,3 +367,31 @@ docker compose up -d      # Fresh rebuild with seed data
 - **1 centralized system** managing all code quality standards
 - **0 breaking changes** from quality improvements
 - **100% operational** system after complete rebuild verification
+
+## Samsung Accessory Protocol Integration (November 2025)
+
+**📱 Mobile-Watch Communication Pipeline:**
+- **Architecture**: Mobile App (Provider) → Samsung Accessory Protocol → Galaxy Watch (Consumer)
+- **Data Flow**: Prometeo Device (BLE) → Mobile App → ProviderService → Galaxy Watch Display
+- **Platform Support**: Samsung Galaxy A51 (Android 14/API 34) + Galaxy Watch 3 (Tizen 5.5)
+
+**🔧 Technical Implementation:**
+- **ProviderService.java**: Samsung Accessory Protocol provider extending SAAgent
+- **Service Configuration**: `accessoryservices.xml` with PyrrhaMobileProvider profile
+- **Communication Channel**: Channel ID 104 with high priority, reliable transmission
+- **JSON Protocol**: Structured sensor data with timestamps, status, and alert thresholds
+- **Connection Management**: Automatic watch discovery, multi-device support, reconnection logic
+
+**📊 Integration Status (November 2025):**
+- **Mobile App Modernization**: ✅ Complete - Android 14 compatibility, Samsung Accessory SDK integration
+- **Watch App Enhancement**: ✅ Complete - Tizen 5.5 optimization, circular UI redesign, ES6+ JavaScript
+- **Samsung Protocol**: ✅ Complete - Real-time sensor data transmission pipeline implemented
+- **Build Status**: ✅ Complete - Zero compilation errors, comprehensive documentation created
+- **Testing Phase**: 🔄 Ready for end-to-end validation with physical Samsung devices
+
+**🎯 Data Transmission Features:**
+- **Update Frequency**: 3-second intervals for optimal battery life and real-time monitoring
+- **Sensor Validation**: CO readings (0-1000 ppm), NO2 readings (0-10 ppm) with error filtering  
+- **Alert System**: Status calculation (normal/warning/alert) based on safety thresholds
+- **Error Handling**: Comprehensive Samsung Accessory Protocol error codes and recovery
+- **Multi-Device**: Support for multiple Galaxy Watch connections per mobile app instance
